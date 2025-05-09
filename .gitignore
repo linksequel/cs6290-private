@@ -173,3 +173,7 @@ cython_debug/
 #MacOS
 **/.DS_Store
 **/data
+**/models
+**/results
+**.pth
+.idea
