@@ -285,7 +285,7 @@ def run_adversarial_training_experiment(standard_model_path=None, eps=0.1, adv_r
     # Standard model (either load or train)
     standard_model = BaselineCNN().to(device)
     if standard_model_path:
-        standard_model.load_state_dict(torch.load(standard_model_path))
+        standard_model.load_state_dict(torch.load(standard_model_path, weights_only=True))
         print(f"Loaded standard model from {standard_model_path}")
     else:
         print("Training standard model from scratch...")

@@ -150,7 +150,9 @@ if __name__ == "__main__":
 
     # Create directories to save models and results
     os.makedirs('models', exist_ok=True)
-    os.makedirs('results', exist_ok=True)
+    os.makedirs('results/task2', exist_ok=True)
+    os.makedirs('results/task3', exist_ok=True)
+    os.makedirs('results/task4', exist_ok=True)
     
     # Parse command line arguments
     parser = argparse.ArgumentParser(description='Run assignments for CNN Adversarial Robustness')

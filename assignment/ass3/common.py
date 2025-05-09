@@ -24,8 +24,13 @@ def set_seed(seed=42):
 
 # Device configuration
 # device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-using_gpu = True
-device = torch.device("mps") if using_gpu and torch.backends.mps.is_available() else torch.device("cpu")
+# device = torch.device("mps") if using_gpu and torch.backends.mps.is_available() else torch.device("cpu")
+device = torch.device('cpu')
+#cuda is Nvidia GPU, mps is Apple GPU
+if torch.cuda.is_available():
+    device = torch.device('cuda')
+elif torch.backends.mps.is_available():
+    device = torch.device('mps')
 
 # Define CNN models
 class BaselineCNN(nn.Module):
@@ -168,7 +173,7 @@ def save_model(model, path):
 
 # Load model function
 def load_model(model, path):
-    model.load_state_dict(torch.load(path))
+    model.load_state_dict(torch.load(path, weights_only=True))
     model.to(device)
     model.eval()
     print(f"Model loaded from {path}")
