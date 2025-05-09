@@ -5,11 +5,11 @@ Related to task3
 
 """
 import torch
-import torch.nn as nn
 import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
 from adversarial_attacks_task2 import pgd_attack
+from common import BaselineCNN, DeeperCNN, AlternativeCNN, load_model, evaluate
 
 def generate_adversarial_examples(source_model, test_loader, device, eps=0.1, alpha=0.01, iters=40):
     """
@@ -195,8 +195,6 @@ def run_transferability_experiment(model_paths, test_loader, device, eps=0.1, al
         alpha: Step size
         iters: Number of iterations
     """
-    from main import BaselineCNN, DeeperCNN, AlternativeCNN, load_model, evaluate
-    
     # Load models
     baseline_model = BaselineCNN().to(device)
     baseline_model = load_model(baseline_model, model_paths['baseline'])

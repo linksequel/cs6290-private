@@ -3,7 +3,6 @@ Implementation of Adversarial Attacks for Assignment 3
 Related to Task2
 """
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
 import matplotlib.pyplot as plt
 import numpy as np

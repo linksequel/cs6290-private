@@ -4,11 +4,11 @@ Implementation of Adversarial Training for Assignment 3
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import torch.nn.functional as F
 import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
 from adversarial_attacks_task2 import pgd_attack, evaluate_under_attack
+from common import BaselineCNN, evaluate, load_data, save_model
 
 def adversarial_training(model, train_loader, test_loader, device, 
                          eps=0.1, alpha=0.01, iters=10, 
@@ -32,8 +32,6 @@ def adversarial_training(model, train_loader, test_loader, device,
     Returns:
         Trained model
     """
-    from main import evaluate
-
     model.train()
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
     criterion = nn.CrossEntropyLoss()
@@ -282,8 +280,6 @@ def run_adversarial_training_experiment(standard_model_path=None, eps=0.1, adv_r
         adv_ratio: Ratio of adversarial examples in each batch
         epochs: Number of training epochs
     """
-    from main import BaselineCNN, evaluate, load_data, save_model
-
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     
     # Load data
