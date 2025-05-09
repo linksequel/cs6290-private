@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
 from adversarial_attacks_task2 import pgd_attack
-from common import BaselineCNN, DeeperCNN, AlternativeCNN, load_model, evaluate
+from common import BaselineCNN, DeeperCNN, AlternativeCNN, load_model
 
 def generate_adversarial_examples(source_model, test_loader, device, eps=0.1, alpha=0.01, iters=40):
     """
@@ -140,7 +140,7 @@ def visualize_transferability_results(results):
     plt.xticks(index + bar_width / 2, model_names, rotation=45, ha='right')
     plt.legend()
     plt.tight_layout()
-    plt.savefig('results/transferability_accuracy.png')
+    plt.savefig('results/task3/transferability_accuracy.png')
     plt.close()
     
     # Bar plot of attack success rates
@@ -151,7 +151,7 @@ def visualize_transferability_results(results):
     plt.title('Transferability of Adversarial Examples')
     plt.xticks(rotation=45, ha='right')
     plt.tight_layout()
-    plt.savefig('results/transferability_success_rate.png')
+    plt.savefig('results/task3/transferability_success_rate.png')
     plt.close()
     
     # Create a table of results
@@ -180,7 +180,7 @@ def visualize_transferability_results(results):
     table.scale(1.2, 1.5)
     
     plt.tight_layout()
-    plt.savefig('results/transferability_table.png')
+    plt.savefig('results/task3/transferability_table.png')
     plt.close()
 
 def run_transferability_experiment(model_paths, test_loader, device, eps=0.1, alpha=0.01, iters=40):

@@ -5,9 +5,9 @@ This repository contains the implementation for Assignment 3, which explores the
 ## Project Structure
 
 - `main.py`: Main script that implements the CNN models and functions for training and evaluation
-- `adversarial_attacks.py`: Implementation of PGD attack and related functions
-- `transfer_attack.py`: Code for evaluating transferability of adversarial examples
-- `adversarial_training.py`: Implementation of adversarial training
+- `adversarial_attacks_task2.py`: Implementation of PGD attack and related functions for Task2
+- `transfer_attack_task3.py`: Code for evaluating transferability of adversarial examples for Task3
+- `adversarial_training_task4.py`: Implementation of adversarial training for Task4
 
 ## Requirements
 

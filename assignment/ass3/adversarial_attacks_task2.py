@@ -142,7 +142,7 @@ def visualize_adversarial_examples(model, test_loader, device, eps=0.1, alpha=0.
         plt.axis('off')
     
     plt.tight_layout()
-    plt.savefig(f'results/adversarial_examples_eps_{eps}.png')
+    plt.savefig(f'results/task2/adversarial_examples_eps_{eps}.png')
     plt.close()
     
     # Print attack success rate
@@ -160,7 +160,7 @@ def visualize_adversarial_examples(model, test_loader, device, eps=0.1, alpha=0.
         plt.axis('off')
     
     plt.tight_layout()
-    plt.savefig(f'results/perturbations_eps_{eps}.png')
+    plt.savefig(f'results/task2/perturbations_eps_{eps}.png')
     plt.close()
 
 # Run PGD attack experiments with different epsilon values
@@ -202,7 +202,7 @@ def run_pgd_experiments(model, test_loader, device, eps_values=[0.01, 0.03, 0.05
     plt.xlabel('Perturbation Budget (ε)')
     plt.ylabel('Accuracy (%)')
     plt.grid()
-    plt.savefig('results/pgd_attack_results.png')
+    plt.savefig('results/task2/pgd_attack_results.png')
     plt.close()
     
     return results 

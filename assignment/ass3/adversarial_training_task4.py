@@ -8,9 +8,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
 from adversarial_attacks_task2 import pgd_attack, evaluate_under_attack
-from common import BaselineCNN, evaluate, load_data, save_model
+from common import BaselineCNN, evaluate, load_data, save_model, device
 
-def adversarial_training(model, train_loader, test_loader, device, 
+def adversarial_training(model, train_loader, test_loader,
                          eps=0.1, alpha=0.01, iters=10, 
                          adv_ratio=0.5, epochs=10, 
                          learning_rate=0.001):
@@ -124,7 +124,7 @@ def plot_training_curves(train_losses, train_accuracies, clean_test_accuracies, 
         clean_test_accuracies: List of clean test accuracies
         adv_test_accuracies: List of adversarial test accuracies
     """
-    # Create figure with two subplots
+    # Create a figure with two subplots
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
     
     # Plot training loss
@@ -145,10 +145,10 @@ def plot_training_curves(train_losses, train_accuracies, clean_test_accuracies, 
     ax2.legend()
     
     plt.tight_layout()
-    plt.savefig('results/adversarial_training_curves.png')
+    plt.savefig('results/task4/adversarial_training_curves.png')
     plt.close()
 
-def compare_models(standard_model, robust_model, test_loader, device, eps_values=[0.01, 0.03, 0.05, 0.1]):
+def compare_models(standard_model, robust_model, test_loader, eps_values=[0.01, 0.03, 0.05, 0.1]):
     """
     Compare standard and robust models
     
@@ -159,8 +159,6 @@ def compare_models(standard_model, robust_model, test_loader, device, eps_values
         device: Device to run on
         eps_values: Epsilon values to test
     """
-    from main import evaluate
-
     # Evaluate on clean data
     print("Evaluating on clean data:")
     standard_clean_acc = evaluate(standard_model, test_loader)
@@ -189,7 +187,7 @@ def plot_model_comparison(standard_clean_acc, robust_clean_acc, standard_adv_acc
     Plot comparison between standard and robust models
     
     Args:
-        standard_clean_acc: Clean accuracy of standard model
+        standard_clean_acc: Clean accuracy of a standard model
         robust_clean_acc: Clean accuracy of robust model
         standard_adv_accs: List of adversarial accuracies for standard model
         robust_adv_accs: List of adversarial accuracies for robust model
@@ -218,7 +216,7 @@ def plot_model_comparison(standard_clean_acc, robust_clean_acc, standard_adv_acc
     plt.grid(axis='y', linestyle='--', alpha=0.7)
     
     plt.tight_layout()
-    plt.savefig('results/model_comparison.png')
+    plt.savefig('results/task4/model_comparison.png')
     plt.close()
     
     # Compute accuracy improvement
@@ -235,7 +233,7 @@ def plot_model_comparison(standard_clean_acc, robust_clean_acc, standard_adv_acc
     plt.grid(axis='y', linestyle='--', alpha=0.7)
     
     plt.tight_layout()
-    plt.savefig('results/robustness_improvement.png')
+    plt.savefig('results/task4/robustness_improvement.png')
     plt.close()
     
     # Create a table of results
@@ -267,7 +265,7 @@ def plot_model_comparison(standard_clean_acc, robust_clean_acc, standard_adv_acc
     table.scale(1.2, 1.5)
     
     plt.tight_layout()
-    plt.savefig('results/robustness_table.png')
+    plt.savefig('results/task4/robustness_table.png')
     plt.close()
 
 def run_adversarial_training_experiment(standard_model_path=None, eps=0.1, adv_ratio=0.5, epochs=10):
@@ -280,8 +278,7 @@ def run_adversarial_training_experiment(standard_model_path=None, eps=0.1, adv_r
         adv_ratio: Ratio of adversarial examples in each batch
         epochs: Number of training epochs
     """
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    
+
     # Load data
     train_loader, test_loader = load_data()
     
@@ -339,7 +336,7 @@ def run_adversarial_training_experiment(standard_model_path=None, eps=0.1, adv_r
     print("\nTraining robust model with adversarial training...")
     robust_model = BaselineCNN().to(device)
     robust_model = adversarial_training(
-        robust_model, train_loader, test_loader, device,
+        robust_model, train_loader, test_loader,
         eps=eps, adv_ratio=adv_ratio, epochs=epochs
     )
     
@@ -348,6 +345,6 @@ def run_adversarial_training_experiment(standard_model_path=None, eps=0.1, adv_r
     
     # Compare standard and robust models
     print("\nComparing standard and robust models:")
-    compare_models(standard_model, robust_model, test_loader, device)
+    compare_models(standard_model, robust_model, test_loader)
     
     return standard_model, robust_model 

@@ -23,7 +23,9 @@ def set_seed(seed=42):
     torch.backends.cudnn.benchmark = False
 
 # Device configuration
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+# device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+using_gpu = True
+device = torch.device("mps") if using_gpu and torch.backends.mps.is_available() else torch.device("cpu")
 
 # Define CNN models
 class BaselineCNN(nn.Module):
